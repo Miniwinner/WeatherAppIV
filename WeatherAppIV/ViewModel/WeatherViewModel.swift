@@ -27,55 +27,97 @@ class WheatherViewModel {
     var foreCastListTen:[TenDaysRawModel] = []
     
     
-    var maxID:Int = 0
-    
-    var onWeatherInfoLoaded: (() -> Void)?
-    var loadCollection: (() -> Void)?
-    var loadCollection2: (() -> Void)?
-    let hours:[String] = ["15:00", "18:00", "", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40","41","42","43","44","45"]
+    var loadCurrentWeather: (() -> Void)?
+    var loadForeCastTen: (() -> Void)?
+    var loadForeCastFour: (() -> Void)?
+
     
     let mainHours:[String] = ["15:00", "18:00", "21:00", "00:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00", "00:00", "06:00"]
     
     let days:[String] = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"]
     
+    //MARK: - CURRENT
+    
     func loadWeatherInfo(latitude: Double, longitude: Double) {
    
         networkService.fetchWeatherData(for: latitude, for: longitude) { [weak self] result in
             guard let self = self else { return }
-            maxID += 1
+            
             switch result {
             case .success(let weatherData):
-               // print(weatherData)
-                // Использование полученных данных о погоде
+              
+                
                 self.coreDataService.update(with: weatherData)
-                 // Обновление интерфейса после получения данных
-                self.onWeatherInfoLoaded?()
+                self.update(latitude: weatherData.coord.lat, longtitude: weatherData.coord.lon)
+                
             case .failure(let error):
-                // Обработка ошибки
+
                 print("Ошибка при получении данных о погоде CURRENT: \(error.localizedDescription)")
             }
         }
-        self.update()
     }
 
+    private func update(latitude: Double, longtitude: Double) {
+        guard let dataModel = coreDataService.fetchOneElement(latitude: latitude, longtitude: longtitude) else { return }
+
+        let rawModel = RawModel(
+            name: dataModel.name ?? "NEVERLAND",
+            temp: convertToCelsius(dataModel.temp),
+            id: dataModel.id,
+            description: dataModel.descriptionW ?? "GOOD",
+            minTemp: convertToCelsius(dataModel.minTemp),
+            maxTemp: convertToCelsius(dataModel.maxTemp)
+        )
+
+        rowModels = [rawModel]
+        currentList = rowModels
+
+        self.loadCurrentWeather?()
+    }
+
+    
+
+    
+    //MARK: -  FOUR
+    
     func loadWeatherInfoForeCast(latitude: Double, longitude: Double) {
         
         networkService.fetchWeatherFourDays(for: latitude, for: longitude) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let weatherDataForeCast):
-               // print(weatherData)
-                // Использование полученных данных о погоде
+
+                
                 self.coreDataService.updateFC(with: weatherDataForeCast)
-                 // Обновление интерфейса после получения данных
-               // self.onWeatherInfoForeCastLoaded?()
+                self.updateFC(latitude: weatherDataForeCast.city.coord.lat, longtitude: weatherDataForeCast.city.coord.lon)
+
             case .failure(let error):
-                // Обработка ошибки
+
                 print("Ошибка при получении данных о погоде FORECAST: \(error.localizedDescription)")
             }
         }
-        self.updateFC()
     }
+    
+    private func updateFC(latitude:Double,longtitude:Double) {
+        guard let dataModels = coreDataService.fetchTwelveElements(latitude: latitude, longtitude: longtitude) else { return }
+        print("\(dataModels.count) - count FC")
+        rowForeCast = dataModels.compactMap ({ model in
+            return ForeCastModel(id: model.id,
+                                 temp: model.temp,
+                                 icon: model.icon ?? "clear sky",
+                                 time: extractTime(from: model.dtTxt ?? "00:00")
+            )
+                
+        })
+        
+        foreCastList = rowForeCast
+        limitedArray = Array(foreCastList.suffix(12))
+
+        self.loadForeCastFour?()
+       
+    }
+    
+    //MARK: -  TEN
     
     func loadWeatherInfoForeCastTen(latitude: Double, longitude: Double) {
         
@@ -83,72 +125,37 @@ class WheatherViewModel {
             guard let self = self else { return }
             switch result {
             case .success(let weatherDataForeCast):
-//                print(weatherDataForeCast)
-                // Использование полученных данных о погоде
+                
+                
                 self.coreDataService.updateFCT(with: weatherDataForeCast)
-                 // Обновление интерфейса после получения данных
-               // self.onWeatherInfoForeCastLoaded?()
+                self.updateFCT(latitude: weatherDataForeCast.lat, longtitude: weatherDataForeCast.lon)
             case .failure(let error):
-                // Обработка ошибки
+                
                 print("Ошибка при получении данных о погоде TEN: \(error.localizedDescription)")
             }
         }
-        self.updateFCT()
-    }
-    
-    
-    
-    private func update() {
-        guard let dataModels = coreDataService.fetchStock() else { return }
-        rowModels = dataModels.compactMap ({ model in
-            return RawModel(name: model.name ?? "NEVERLAND",
-                            temp: ((model.temp - 273.15) * 10).rounded(.toNearestOrAwayFromZero) / 10,
-                            id: model.id,
-                            description: model.descriptionW ?? "GOOD",
-                            minTemp: ((model.minTemp - 273.15) * 10).rounded(.toNearestOrAwayFromZero) / 10,
-                            maxTemp: ((model.maxTemp - 273.15) * 10).rounded(.toNearestOrAwayFromZero) / 10
-            )
-            
-        })
-        currentList = rowModels
-//        print(dataModels)
-    }
-    
-    private func updateFC() {
-        guard let dataModels = coreDataService.fetchStockFC() else { return }
-        //print(dataModels.count)
-        rowForeCast = dataModels.compactMap ({ model in
-            return ForeCastModel(id: model.id,
-                                 temp: model.temp,
-                                 icon: model.icon ?? "clear sky" )
-            
-        })
         
-        foreCastList = rowForeCast
-        limitedArray = Array(foreCastList.prefix(12))
-//        print(foreCastList.count)
-//        print(limitedArray.count)
-        self.loadCollection2?()
-       
     }
     
-    private func updateFCT() {
-        guard let dataModels = coreDataService.fetchStockFCT() else { return }
-        print(dataModels.count)
+    private func updateFCT(latitude: Double,longtitude: Double) {
+        guard let dataModels = coreDataService.fetchSevenElements(latitude: latitude, longitude: longtitude) else { return }
+        print("\(dataModels.count) - count FCT")
         rowTenForeCast = dataModels.compactMap ({ model in
             return TenDaysRawModel(id: model.idT,
                                    description: model.descriptionT ?? "clear sky",
-                                   temp: model.tempT)
-            
+                                   temp: model.tempT,
+                                   tempMin: convertToCelsius(model.tempMin),
+                                   tempMax: convertToCelsius(model.tempMax)
+                                   
+            )
         })
-        
         foreCastListTen = rowTenForeCast
-        limitedArrayTen = Array(foreCastListTen.prefix(7))
-//        print(dataModels)
-//        print(limitedArrayTen)
-        self.loadCollection2?()
-       
+        limitedArrayTen = Array(foreCastListTen.suffix(7))
+        
+        self.loadForeCastTen?()
     }
+    
+    //MARK: - UI LOAD DATA
     
     func cellCount() -> Int{
         return limitedArray.count
@@ -161,6 +168,24 @@ class WheatherViewModel {
     
     func itemForCellTen(index: Int) -> TenDaysRawModel {
         return limitedArrayTen[index]
+    }
+    
+    
+    private func convertToCelsius(_ tempKelvin: Double) -> Double {
+        return ((tempKelvin - 273.15) * 10).rounded(.toNearestOrAwayFromZero) / 10
+    }
+    
+    private func extractTime(from dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" 
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "HH:mm"
+            return dateFormatter.string(from: date)
+        } else {
+            return "Вчера"
+        }
     }
     
 }

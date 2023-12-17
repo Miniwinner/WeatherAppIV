@@ -44,7 +44,7 @@ struct Alert: Codable {
 
 // MARK: - Daily
 struct Daily: Codable {
-    let dt:Int?
+    let dt:Int
     let sunrise, sunset, moonrise: Int
     let moonset: Int
     let moonPhase: Double

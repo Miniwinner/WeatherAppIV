@@ -21,6 +21,8 @@ extension TenForeCast {
     @NSManaged public var tempMin: Double
     @NSManaged public var tempMax: Double
     @NSManaged public var tempT: Double
+    @NSManaged public var longtitude: Double
+    @NSManaged public var latitude: Double
 }
 
 extension TenForeCast : Identifiable {

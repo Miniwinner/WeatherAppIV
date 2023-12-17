@@ -33,7 +33,7 @@ struct CityForeCast: Codable {
 
 // MARK: - Coord
 struct CoordForeCast: Codable {
-    let lat, lon: Double?
+    let lat, lon: Double
 }
 
 // MARK: - List
@@ -47,7 +47,7 @@ struct List: Codable {
     let pop: Double?
     let snow: Rain?
     let sys: SysForeCast
-    let dtTxt: String?
+    let dtTxt: String
     let rain: Rain?
 
     enum CodingKeys: String, CodingKey {

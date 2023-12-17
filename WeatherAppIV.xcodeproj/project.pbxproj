@@ -38,15 +38,15 @@
 		41219F2E2B29B50B008A69C8 /* RawModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawModel.swift; sourceTree = "<group>"; };
 		41219F312B2A3917008A69C8 /* FourDaysCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourDaysCollectionViewCell.swift; sourceTree = "<group>"; };
 		41219F332B2A565C008A69C8 /* ForeCastWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeCastWeather.swift; sourceTree = "<group>"; };
-		41219F352B2B6ABB008A69C8 /* WeatherFC+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherFC+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		41219F362B2B6ABB008A69C8 /* WeatherFC+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherFC+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		41219F352B2B6ABB008A69C8 /* WeatherFC+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WeatherFC+CoreDataClass.swift"; path = "WeatherAppIV/CoreData/FourForeCast/WeatherFC+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		41219F362B2B6ABB008A69C8 /* WeatherFC+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WeatherFC+CoreDataProperties.swift"; path = "WeatherAppIV/CoreData/FourForeCast/WeatherFC+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		41219F392B2B6CFD008A69C8 /* ForeCastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeCastModel.swift; sourceTree = "<group>"; };
 		41219F3B2B2BBFA0008A69C8 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		41219F3D2B2CC20F008A69C8 /* TenDaysModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDaysModel.swift; sourceTree = "<group>"; };
 		41219F3F2B2CCA3C008A69C8 /* TenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenTableViewCell.swift; sourceTree = "<group>"; };
 		41219F412B2CCD8A008A69C8 /* TenDaysRawModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDaysRawModel.swift; sourceTree = "<group>"; };
-		41219F432B2DAABD008A69C8 /* TenForeCast+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TenForeCast+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		41219F442B2DAABD008A69C8 /* TenForeCast+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TenForeCast+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		41219F432B2DAABD008A69C8 /* TenForeCast+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TenForeCast+CoreDataClass.swift"; path = "WeatherAppIV/CoreData/TenForeCast/TenForeCast+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		41219F442B2DAABD008A69C8 /* TenForeCast+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TenForeCast+CoreDataProperties.swift"; path = "WeatherAppIV/CoreData/TenForeCast/TenForeCast+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		4196B2422B2614E500B182F9 /* WeatherAppIV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppIV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4196B2452B2614E500B182F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4196B2472B2614E500B182F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,8 +57,8 @@
 		4196B2562B2614E800B182F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4196B25C2B26154300B182F9 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4196B25E2B26156300B182F9 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
-		419F54C02B27550F00AFCFD9 /* Weather+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weather+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		419F54C12B27550F00AFCFD9 /* Weather+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weather+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		419F54C02B27550F00AFCFD9 /* Weather+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Weather+CoreDataClass.swift"; path = "WeatherAppIV/CoreData/Current/Weather+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		419F54C12B27550F00AFCFD9 /* Weather+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Weather+CoreDataProperties.swift"; path = "WeatherAppIV/CoreData/Current/Weather+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		419F54C42B27560F00AFCFD9 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +80,60 @@
 				41219F3F2B2CCA3C008A69C8 /* TenTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		41219F472B2DF231008A69C8 /* TenForeCast */ = {
+			isa = PBXGroup;
+			children = (
+				41219F432B2DAABD008A69C8 /* TenForeCast+CoreDataClass.swift */,
+				41219F442B2DAABD008A69C8 /* TenForeCast+CoreDataProperties.swift */,
+			);
+			path = TenForeCast;
+			sourceTree = "<group>";
+		};
+		41219F482B2DF242008A69C8 /* FourForeCast */ = {
+			isa = PBXGroup;
+			children = (
+				41219F352B2B6ABB008A69C8 /* WeatherFC+CoreDataClass.swift */,
+				41219F362B2B6ABB008A69C8 /* WeatherFC+CoreDataProperties.swift */,
+			);
+			path = FourForeCast;
+			sourceTree = "<group>";
+		};
+		41219F492B2DF25B008A69C8 /* Current */ = {
+			isa = PBXGroup;
+			children = (
+				419F54C02B27550F00AFCFD9 /* Weather+CoreDataClass.swift */,
+				419F54C12B27550F00AFCFD9 /* Weather+CoreDataProperties.swift */,
+			);
+			path = Current;
+			sourceTree = "<group>";
+		};
+		41219F4A2B2DF270008A69C8 /* TenForeCast */ = {
+			isa = PBXGroup;
+			children = (
+				41219F3D2B2CC20F008A69C8 /* TenDaysModel.swift */,
+				41219F412B2CCD8A008A69C8 /* TenDaysRawModel.swift */,
+			);
+			path = TenForeCast;
+			sourceTree = "<group>";
+		};
+		41219F4B2B2DF27A008A69C8 /* FourForeCast */ = {
+			isa = PBXGroup;
+			children = (
+				41219F332B2A565C008A69C8 /* ForeCastWeather.swift */,
+				41219F392B2B6CFD008A69C8 /* ForeCastModel.swift */,
+			);
+			path = FourForeCast;
+			sourceTree = "<group>";
+		};
+		41219F4C2B2DF286008A69C8 /* Current */ = {
+			isa = PBXGroup;
+			children = (
+				41219F2C2B29A86F008A69C8 /* CurrentWeather.swift */,
+				41219F2E2B29B50B008A69C8 /* RawModel.swift */,
+			);
+			path = Current;
 			sourceTree = "<group>";
 		};
 		4196B2392B2614E500B182F9 = {
@@ -134,12 +188,9 @@
 		4196B2642B2615A000B182F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				41219F2C2B29A86F008A69C8 /* CurrentWeather.swift */,
-				41219F2E2B29B50B008A69C8 /* RawModel.swift */,
-				41219F332B2A565C008A69C8 /* ForeCastWeather.swift */,
-				41219F392B2B6CFD008A69C8 /* ForeCastModel.swift */,
-				41219F3D2B2CC20F008A69C8 /* TenDaysModel.swift */,
-				41219F412B2CCD8A008A69C8 /* TenDaysRawModel.swift */,
+				41219F4C2B2DF286008A69C8 /* Current */,
+				41219F4B2B2DF27A008A69C8 /* FourForeCast */,
+				41219F4A2B2DF270008A69C8 /* TenForeCast */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -147,8 +198,8 @@
 		4196B2652B2615A600B182F9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				41219F302B2A38EC008A69C8 /* Cells */,
 				4196B2492B2614E500B182F9 /* MainViewController.swift */,
+				41219F302B2A38EC008A69C8 /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -174,12 +225,9 @@
 		419F54BF2B2754FA00AFCFD9 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				41219F432B2DAABD008A69C8 /* TenForeCast+CoreDataClass.swift */,
-				41219F442B2DAABD008A69C8 /* TenForeCast+CoreDataProperties.swift */,
-				41219F352B2B6ABB008A69C8 /* WeatherFC+CoreDataClass.swift */,
-				41219F362B2B6ABB008A69C8 /* WeatherFC+CoreDataProperties.swift */,
-				419F54C02B27550F00AFCFD9 /* Weather+CoreDataClass.swift */,
-				419F54C12B27550F00AFCFD9 /* Weather+CoreDataProperties.swift */,
+				41219F492B2DF25B008A69C8 /* Current */,
+				41219F482B2DF242008A69C8 /* FourForeCast */,
+				41219F472B2DF231008A69C8 /* TenForeCast */,
 				419F54C42B27560F00AFCFD9 /* CoreDataService.swift */,
 			);
 			path = CoreData;

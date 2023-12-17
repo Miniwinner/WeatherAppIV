@@ -27,6 +27,8 @@ extension Weather {
     @NSManaged public var minTemp: Double
     @NSManaged public var maxTemp: Double
     @NSManaged public var descriptionW: String?
+    @NSManaged public var longtitude: Double
+    @NSManaged public var latitude: Double
 
 }
 

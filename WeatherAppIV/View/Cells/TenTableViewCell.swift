@@ -23,7 +23,6 @@ class TenTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
     lazy var labelDay:UILabel = {
@@ -41,7 +40,17 @@ class TenTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.backgroundColor = .clear
-        label.textAlignment = .center
+        label.textAlignment = .left
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        return label
+    }()
+    
+    lazy var labelTempMax:UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.backgroundColor = .clear
+        label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
@@ -59,12 +68,13 @@ class TenTableViewCell: UITableViewCell {
         self.addSubview(labelDay)
         self.addSubview(labelTemp)
         self.addSubview(imageWeather)
+        self.addSubview(labelTempMax)
     }
     
     func configData(model:TenDaysRawModel){
-        labelTemp.text = "\(model.temp)"
+        labelTemp.text = "↓ \(model.tempMin)°"
+        labelTempMax.text = "↑ \(model.tempMax)°"
         imageWeather.image = UIImage(named: model.description)
-//        print(model.te)
     }
     
     func configLayout(){
@@ -81,9 +91,14 @@ class TenTableViewCell: UITableViewCell {
         imageWeather.widthAnchor.constraint(equalToConstant: 35),
         
         labelTemp.topAnchor.constraint(equalTo: self.topAnchor,constant: 5),
-        labelTemp.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 150),
-        labelTemp.widthAnchor.constraint(equalToConstant: 80),
+        labelTemp.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 120),
+        labelTemp.widthAnchor.constraint(equalToConstant: 70),
         labelTemp.heightAnchor.constraint(equalToConstant: 35),
+        
+        labelTempMax.topAnchor.constraint(equalTo: self.topAnchor,constant: 5),
+        labelTempMax.leadingAnchor.constraint(equalTo: self.labelTemp.trailingAnchor,constant: 10),
+        labelTempMax.widthAnchor.constraint(equalToConstant: 70),
+        labelTempMax.heightAnchor.constraint(equalToConstant: 35),
         
         ])
     }

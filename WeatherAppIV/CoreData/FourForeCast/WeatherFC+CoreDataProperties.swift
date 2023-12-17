@@ -19,7 +19,9 @@ extension ForeCast {
     @NSManaged public var temp: Double
     @NSManaged public var icon: String?
     @NSManaged public var id: Int64
-   
+    @NSManaged public var longtitude: Double
+    @NSManaged public var latitude: Double
+    @NSManaged public var dtTxt: String?
 
 
 }

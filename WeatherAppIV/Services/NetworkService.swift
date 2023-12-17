@@ -8,12 +8,8 @@
 import Foundation
 import CoreLocation
 
-//1 https://api.openweathermap.org/data/2.5/weather?lat=52&lon=35&appid=567c7b63e5f9a2a52e3fb07c3aa0a5f8
 let key = "cb9724d7ea370100c6cee75a0855d1e3"
 
-//2 https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=52&lon=35&appid=cb9724d7ea370100c6cee75a0855d1e3
-//3 api.openweathermap.org/data/2.5/forecast/daily?lat=52&lon=35&cnt=7&appid=cb9724d7ea370100c6cee75a0855d1e3
-//4 api.openweathermap.org/data/2.5/forecast?lat=21.2827778&lon=-157.8294444&appid=cb9724d7ea370100c6cee75a0855d1e3
 class NetworkService {
     
     func fetchWeatherData(for lat: Double, for lon: Double, completion: @escaping (Result<CurrentWeather, Error>) -> Void) {

@@ -23,7 +23,7 @@ class FourDaysCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textAlignment = .center
         label.backgroundColor = .clear
         return label
@@ -51,6 +51,7 @@ class FourDaysCollectionViewCell: UICollectionViewCell {
     func configData(model:ForeCastModel){
         labelTemp.text = "\(((model.temp - 273.15) * 10).rounded(.toNearestOrAwayFromZero) / 10)°"
         imageWeather.image = UIImage(named: model.icon)
+        labelHour.text = model.time
     }
         
     func setupUI(){
@@ -58,6 +59,7 @@ class FourDaysCollectionViewCell: UICollectionViewCell {
         self.addSubview(labelHour)
         self.addSubview(labelTemp)
         self.addSubview(imageWeather)
+        
     }
     
     func configLayout(){
@@ -75,7 +77,7 @@ class FourDaysCollectionViewCell: UICollectionViewCell {
         
         labelTemp.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -5),
         labelTemp.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 15),
-        labelTemp.widthAnchor.constraint(equalToConstant: 50),
+        labelTemp.widthAnchor.constraint(equalToConstant: 60),
         labelTemp.heightAnchor.constraint(equalToConstant: 30),
         
         ])

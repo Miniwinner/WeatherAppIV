@@ -11,4 +11,5 @@ struct ForeCastModel{
     var id:Int64
     var temp:Double
     var icon:String
+    var time:String
 }

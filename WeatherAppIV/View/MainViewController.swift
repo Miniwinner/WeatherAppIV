@@ -93,28 +93,16 @@ class MainViewController: UIViewController {
         return collection
     }()
     
-    lazy var refreshButton:UIButton = {
-        let button = UIButton()
-        button.setTitle("Refresh", for: .normal)
-        button.backgroundColor = .red
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.transform = CGAffineTransform.identity
-        button.addTarget(self, action: #selector(setValueWeather), for: .touchUpInside)
-        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchDown)
-        button.addTarget(self, action: #selector(buttonReleased(_:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
-
-        return button
-    }()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         requestLocationAuthorization()
-        reloadData()
-        reloadData2()
+        reloadDataTen()
+        reloadDataFour()
         didLoadWeather()
         configUI()
         configLayout()
-//        setValueLoad()
         }
 
     //MARK: - UI LAYOUT
@@ -126,7 +114,6 @@ class MainViewController: UIViewController {
         view.addSubview(labelTemp)
         view.addSubview(labelminMaxTemp)
         view.addSubview(labelWeatherFeeling)
-//        view.addSubview(refreshButton)
 
         view.addSubview(tableTenDays)
         tableTenDays.delegate = self
@@ -180,11 +167,6 @@ class MainViewController: UIViewController {
             tableTenDays.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -10),
             tableTenDays.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             
-//            refreshButton.topAnchor.constraint(equalTo: view.topAnchor,constant: 600),
-//            refreshButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            refreshButton.widthAnchor.constraint(equalToConstant: 100),
-//            refreshButton.heightAnchor.constraint(equalToConstant: 50),
-            
         ])
         
     }
@@ -215,64 +197,59 @@ class MainViewController: UIViewController {
     //MARK: - DATA LOADING
     
     func didLoadWeather(){
-        vm.onWeatherInfoLoaded = {[weak self] in
+        vm.loadCurrentWeather = {[weak self] in
             self?.setValueLoad()
         }
     }
     
-    func reloadData2(){
-        vm.loadCollection2 = {[weak self] in
-            self?.reloadCollection()
+    func reloadDataTen(){
+        vm.loadForeCastTen = {[weak self] in
+            self?.reloadCollectionTen()
         }
     }
     
-    func reloadData(){
-            vm.loadCollection =  {[weak self] in
-            self?.reloadCollection()
+    func reloadDataFour(){
+            vm.loadForeCastFour =  {[weak self] in
+            self?.reloadCollectionFour()
         }
     }
     
-    func reloadCollection(){
+    func reloadCollectionTen(){
+        DispatchQueue.main.async {
+            self.tableTenDays.reloadData()
+        }
+    }
+    
+    
+    func reloadCollectionFour(){
         DispatchQueue.main.async {
             self.collectionFourDays.reloadData()
-            self.tableTenDays.reloadData()
         }
     }
     
     func setValueLoad(){
         DispatchQueue.main.async {
-            self.labelName.text = "\(self.vm.currentList.last?.name ?? "")"
-            self.labelTemp.text = "\(self.vm.currentList.last?.temp ?? 0)°"
-            self.labelWeatherFeeling.text = "\(self.vm.currentList.last?.description ?? "")"
-            self.labelminMaxTemp.text = "↓ \(self.vm.currentList.last?.minTemp ?? 0)° ↑ \(self.vm.currentList.last?.maxTemp ?? 0)°"
+            self.labelName.text = "\(self.vm.currentList.first?.name ?? "")"
+            self.labelTemp.text = "\(self.vm.currentList.first?.temp ?? 0)°"
+            self.labelWeatherFeeling.text = "\(self.vm.currentList.first?.description ?? "")"
+            self.labelminMaxTemp.text = "↓ \(self.vm.currentList.first?.minTemp ?? 0)° ↑ \(self.vm.currentList.last?.maxTemp ?? 0)°"
         }
     }
-    
-   
     
     //MARK: - ANIMATIONS
     
-    @objc func buttonPressed(_ sender: UIButton) {
-        // Анимация уменьшения кнопки
-        UIView.animate(withDuration: 0.1) {
-            sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        }
-    }
-
+   
     
     
-    @objc func buttonReleased(_ sender: UIButton) {
-        // Анимация возврата к исходному размеру
-        UIView.animate(withDuration: 0.1) {
-            sender.transform = CGAffineTransform.identity
-        }
-    }
+    
+    
+    
+    
+    
     
     //MARK: - CLL METHODS
     
-    @objc func setValueWeather(){
-        startLocationManger()
-    }
+  
     
     func requestLocationAuthorization() {
         locationManager.requestWhenInUseAuthorization()
@@ -306,12 +283,7 @@ extension MainViewController:CLLocationManagerDelegate{
         if  let lastLocation = locations.last{
             let geoCoder = CLGeocoder()
             geoCoder.reverseGeocodeLocation(lastLocation){ placemarks,error in
-//                if let placemark = placemarks?.first{
-//                    let adress = "\(placemark.locality ?? "") \(placemark.thoroughfare ?? "")"
-//                    DispatchQueue.main.async {
-//                        self.locationLabel.text = adress
-//                    }
-//                }
+
             }
             
             vm.loadWeatherInfo(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude)
@@ -333,11 +305,11 @@ extension MainViewController:CLLocationManagerDelegate{
 extension MainViewController:UICollectionViewDataSource,UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return vm.cellCount()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionFourDays.dequeueReusableCell(withReuseIdentifier: "four", for: indexPath) as! FourDaysCollectionViewCell
-        cell.labelHour.text = vm.mainHours[indexPath.row]
         cell.configData(model: vm.itemForCell(index: indexPath.row))
         return cell
     }
