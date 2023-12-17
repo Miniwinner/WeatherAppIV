@@ -6,11 +6,19 @@
 //
 
 import Foundation
-import CoreLocation
+import Alamofire
 
 let key = "cb9724d7ea370100c6cee75a0855d1e3"
 
 class NetworkService {
+    
+        
+    func checkConnection() -> Bool {
+
+        return NetworkReachabilityManager()?.isReachable ?? false
+    }
+    
+    
     
     func fetchWeatherData(for lat: Double, for lon: Double, completion: @escaping (Result<CurrentWeather, Error>) -> Void) {
         guard let urlWeather = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&appid=\(key)") else {

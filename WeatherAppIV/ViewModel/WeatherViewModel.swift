@@ -25,21 +25,40 @@ class WheatherViewModel {
     
     var rowTenForeCast:[TenDaysRawModel] = []
     var foreCastListTen:[TenDaysRawModel] = []
-    
+
+    var lastCoords:LastModel = LastModel(latitude: 55.7558, longitude: 37.6176)
     
     var loadCurrentWeather: (() -> Void)?
     var loadForeCastTen: (() -> Void)?
     var loadForeCastFour: (() -> Void)?
-
+    var callCLLmanager: (() -> Void)?
     
     let mainHours:[String] = ["15:00", "18:00", "21:00", "00:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00", "00:00", "06:00"]
     
     let days:[String] = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"]
     
+    //MARK: - CONNECTION CHECK
+    
+    func loadData(){
+        
+        if  networkService.checkConnection() == true{
+            callCLLmanager?()
+            
+        }else{
+            
+            update(latitude: lastCoords.latitude, longtitude: lastCoords.longitude)
+            updateFC(latitude: lastCoords.latitude, longtitude: lastCoords.longitude)
+            updateFCT(latitude: lastCoords.latitude, longtitude: lastCoords.longitude)
+        }
+        
+    }
+    
+   
+    
     //MARK: - CURRENT
     
     func loadWeatherInfo(latitude: Double, longitude: Double) {
-   
+        lastCoords = LastModel(latitude: latitude, longitude: longitude)
         networkService.fetchWeatherData(for: latitude, for: longitude) { [weak self] result in
             guard let self = self else { return }
             

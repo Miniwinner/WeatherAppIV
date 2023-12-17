@@ -97,14 +97,25 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestLocationAuthorization()
+//        requestLocationAuthorization()
+        startGEO()
+        vm.loadData()
+        didLoadWeather()
         reloadDataTen()
         reloadDataFour()
-        didLoadWeather()
+        
         configUI()
         configLayout()
         }
 
+    //MA
+    
+    func startGEO(){
+        vm.callCLLmanager = { [weak self] in
+            self?.requestLocationAuthorization()
+        }
+    }
+    
     //MARK: - UI LAYOUT
     
     func configUI(){
@@ -198,41 +209,28 @@ class MainViewController: UIViewController {
     
     func didLoadWeather(){
         vm.loadCurrentWeather = {[weak self] in
-            self?.setValueLoad()
+            DispatchQueue.main.async {
+                self?.labelName.text = "\(self?.vm.currentList.first?.name ?? "")"
+                self?.labelTemp.text = "\(self?.vm.currentList.first?.temp ?? 0)°"
+                self?.labelWeatherFeeling.text = "\(self?.vm.currentList.first?.description ?? "")"
+                self?.labelminMaxTemp.text = "↓ \(self?.vm.currentList.first?.minTemp ?? 0)° ↑ \(self?.vm.currentList.last?.maxTemp ?? 0)°"
+            }
         }
     }
     
     func reloadDataTen(){
         vm.loadForeCastTen = {[weak self] in
-            self?.reloadCollectionTen()
+             DispatchQueue.main.async {
+                self?.tableTenDays.reloadData()
+            }
         }
     }
     
     func reloadDataFour(){
-            vm.loadForeCastFour =  {[weak self] in
-            self?.reloadCollectionFour()
-        }
-    }
-    
-    func reloadCollectionTen(){
-        DispatchQueue.main.async {
-            self.tableTenDays.reloadData()
-        }
-    }
-    
-    
-    func reloadCollectionFour(){
-        DispatchQueue.main.async {
-            self.collectionFourDays.reloadData()
-        }
-    }
-    
-    func setValueLoad(){
-        DispatchQueue.main.async {
-            self.labelName.text = "\(self.vm.currentList.first?.name ?? "")"
-            self.labelTemp.text = "\(self.vm.currentList.first?.temp ?? 0)°"
-            self.labelWeatherFeeling.text = "\(self.vm.currentList.first?.description ?? "")"
-            self.labelminMaxTemp.text = "↓ \(self.vm.currentList.first?.minTemp ?? 0)° ↑ \(self.vm.currentList.last?.maxTemp ?? 0)°"
+        vm.loadForeCastFour =  {[weak self] in
+            DispatchQueue.main.async {
+                self?.collectionFourDays.reloadData()
+            }
         }
     }
     

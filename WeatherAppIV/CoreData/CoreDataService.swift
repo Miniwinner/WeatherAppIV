@@ -209,7 +209,6 @@ class CoreDataService {
                     existingModel.descriptionT = weatherDescription
                     existingModel.tempMax = temp.max
                     existingModel.tempMin = temp.min
-                   // print(existingModel)
                     try context.save()
                     print("\(stock.lat) \(stock.lon) update FCT ✅✅✅")
                 } else {
